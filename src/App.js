@@ -1,26 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
+import Person from './Person/person'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  state = {
+    person: [
+      { id: 0, name: "Shefali", age: 18 },
+      { id: 1, name: "Shivani", age: 18 },
+      { id: 2, name: "Arpit", age: 21.4 }
+    ],
+    count: 0
+  }
+  removePerson = index => {
+    const newPersonCopy = [...this.state.person];
+    newPersonCopy.splice(index, 1);
+    this.setState({ person: newPersonCopy });
+  }
+  render() {
+    return (
+      <div className="App">
+        <h1> Hi I m React App </h1>
+        {
+          this.state.person.map((person, index) => {
+            return <Person onclick={() => this.removePerson(index)} id={person.id} name={person.name} age={person.age} />
+          })
+        }
+      </div>
+    );
+  }
 }
-
 export default App;
